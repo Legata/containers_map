@@ -1,18 +1,11 @@
-import Settings from '../app';
+import ErrorRepository from '../app';
 
-test('adding custom settings', () => {
-  const settingsUser = new Settings('dark', 'pop', 'easy');
-  const expectation = new Map([
-    ['theme', 'dark'],
-    ['music', 'pop'],
-    ['difficulty', 'easy'],
-  ]);
-
-  expect(settingsUser.settings).toEqual(expectation);
+test('error display', () => {
+  const error = new ErrorRepository();
+  expect(error.translate(500)).toBe('Internal Server Error');
 });
 
-test('if there is no such parameter', () => {
-  expect(() => new Settings('adark', 'pop', 'easy')).toThrow('Не найдено значение в theme!!!');
-  expect(() => new Settings('dark', 'opop', 'easy')).toThrow('Не найдено значение в music!!!');
-  expect(() => new Settings('dark', 'pop', 'seasy')).toThrow('Не найдено значение в difficulty!!!');
+test('Unknown error', () => {
+  const error = new ErrorRepository();
+  expect(error.translate(502)).toBe('Unknown error');
 });
